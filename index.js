@@ -11,7 +11,6 @@ const server = new ApolloServer({
     typeDefs, 
     resolvers,
     context : async ({req}) => {
-        //obtener token
         const token = req.headers['authorization'];
         if(token !== 'null'){
             try {
