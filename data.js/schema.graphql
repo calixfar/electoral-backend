@@ -1,0 +1,303 @@
+type Persona {
+    id: ID
+    cedula: String
+    nombre: String
+    apellido: String
+    fechaCumple: String
+    mensajeCumple: Boolean
+    estadoCivil: estadoCivil
+    ocupacion: String
+    perfil: String
+    celular: String
+    direccion: String
+    correo: String
+    edad: Int
+    tipo: String
+    zona: ID
+    barrio: ID
+    lugarVotacion: String
+    mesaVotacion: Int
+    metaVotos: Int
+    estadoContacto: estadoContacto
+    dinero: String
+    genero: String
+    fidelizado: Boolean
+    tipoVoto: String
+    superior: personaSuperior
+    macros: [personaMacros]
+    lideres: [personaLideres]
+    multip: [personaMultip]
+    votantes: [personaVotantes]
+    totalPersonas: Int
+    totalFidelizados: Int
+    totalGeneral: totalGeneral
+}
+type totalGeneral {
+    totalPersonas: Int,
+    totalFidelizados: Int,
+    totalGeneralLideres: totalGeneralLideres,
+    totalGeneralMacros: totalGeneralMacros,
+    totalGeneralMultip: totalGeneralMultip,
+    totalGeneralVotantes: totalGeneralVotantes 
+}
+type totalGeneralLideres {
+    totalPersonas: Int
+    totalFidelizados: Int
+}
+type totalGeneralMacros {
+    totalPersonas: Int
+    totalFidelizados: Int
+}
+type totalGeneralMultip {
+    totalPersonas: Int
+    totalFidelizados: Int
+}
+type totalGeneralVotantes {
+    totalPersonas: Int
+    totalFidelizados: Int
+}
+type personaSuperior {
+    id: ID
+    nombre: String
+    tipo: String
+}
+type personaMacros {
+    id: ID
+}
+type personaLideres {
+    id: ID
+}
+type personaMultip {
+    id: ID
+}
+type personaVotantes {
+    id: ID
+}
+type zona {
+    id: ID
+    nombre: String
+    barrios: [zonaBarrio]
+}
+type zonaBarrio {
+    id: ID
+}
+type barrio {
+    id: ID
+    nombre: String
+    cantidadVotantes: Int
+    estado: String
+    metaVotos: Int
+    zona: ID
+    votosFide: Int
+
+}
+type lugarVotacion {
+    id: ID
+    nombre: String
+    censoMujeres: Int
+    censoHombres: Int
+    potencial: Int
+    mesas: [mesa]
+}
+type mesa {
+    idMesa: ID
+}
+type  mesaVotacion {
+    id: ID
+
+}
+type Token {
+    token: String!
+}
+type Usuario  {
+    id: ID
+    usuario: String
+    nombre: String
+    rol: String
+    active: Boolean
+    fecha: String
+}
+
+type PersonasBarrio {
+    totalPersonasBarrio: Int
+    totalPersonasFideBarrio: Int
+}
+enum estadoCivil {
+    SOLTERO
+    CASADO
+    UNION
+    SEPARADO
+    DIVORCIADO
+    VIUDO
+}
+
+enum tipoPersona {
+    VOTANTE
+    MULTIPLICADOR
+    LIDER
+    CONCEJAL
+}
+
+enum estadoContacto {
+    SEMANA
+    MASSEMANA
+    MES
+}
+
+input inputPersona {
+    id: ID
+    cedula: String
+    nombre: String
+    apellido: String
+    fechaCumple: String
+    estadoCivil: estadoCivil
+    ocupacion: String
+    perfil: String
+    celular: String
+    direccion: String
+    correo: String
+    tipo: String
+    zona: ID
+    barrio: ID
+    lugarVotacion: String
+    mesaVotacion: Int
+    metaVotos: Int
+    estadoContacto: estadoContacto
+    dinero: String
+    genero: String
+    fidelizado: Boolean
+    tipoVoto: String
+    superior: inputPersonaSuperior
+    macros: inputPersonaMacros
+    lideres: inputPersonaLideres
+    multip: inputPersonaMultip
+    votantes: inputPersonaVotantes
+    totalPersonas: Int
+    totalFidelizados: Int
+    totalGeneral : inputTotalGeneral
+    min: Int
+    max: Int
+}
+input inputTotalGeneral {
+    totalGeneralLideres: inputTotalGeneralLideres,
+    totalGeneralMacros: inputTotalGeneralMacros,
+    totalGeneralMultip: inputTotalGeneralMultip,
+    totalGeneralVotantes: inputTotalGeneralVotantes 
+}
+input inputTotalGeneralLideres {
+    totalPersonas: Int
+    totalFidelizados: Int
+}
+input inputTotalGeneralMacros {
+    totalPersonas: Int
+    totalFidelizados: Int
+}
+input inputTotalGeneralMultip {
+    totalPersonas: Int
+    totalFidelizados: Int
+}
+input inputTotalGeneralVotantes {
+    totalPersonas: Int
+    totalFidelizados: Int
+}
+input inputPersonaSuperior {
+    id: ID
+    nombre: String
+    tipo: String
+}
+input inputPersonaMacros {
+    id: ID
+}
+input inputPersonaLideres {
+    id: ID
+}
+input inputPersonaMultip {
+    id: ID
+}
+input inputPersonaVotantes {
+    id: ID
+}
+
+input inputBarrio {
+    id: ID
+    nombre: String
+    cantidadVotantes: Int
+    metaVotos: Int
+    estado: String
+    zona: ID
+}
+
+input inputZona {
+    id: ID
+    nombre: String
+    barrios: [inputZonaBarrio]
+}
+input inputZonaBarrio {
+    id: ID
+}
+input inputEliminarBarrio {
+    zona: ID
+    barrio: ID
+}
+input inputQuerySuperior {
+    id: ID
+    tipo : String
+}
+input inputSMS {
+    to: String
+    id: ID
+    edad: Int
+    nombre: String
+}
+input inputMasivePerson {
+    datos: [inputPersona]
+}
+input inputLugarVotacion {
+    id: ID
+    nombre: String
+    censoMujeres: Int
+    censoHombres: Int
+    potencial: Int
+    mesas: [inputMesa]
+}
+input inputMesa {
+    idMesa: ID
+}
+type Query {
+    obtenerZonas (input: inputZona, limite: Int, offset: Int) : [zona]
+    obtenerZona (id: ID): zona
+    #Barrios
+    obtenerBarrios(id: ID,input: inputBarrio, limite: Int, offset: Int) : [barrio]
+    obtenerBarrio(id: ID) : barrio
+    searchIdBarrio(nombre: String) : barrio
+    totalBarrios(input: inputBarrio) : Int
+    obtenerPersonas(input: inputPersona, limite: Int, offset: Int, filtro: Boolean) : [Persona]
+    obtenerPersona(id: ID): Persona
+    obtenerPersonasSuperior(input: inputQuerySuperior) : [Persona]
+    obtenerPersonasCumple : [Persona]
+    obtenerPersonasBarrio(barrio: ID) : PersonasBarrio
+    totalPersonas(input: inputPersona, all: Boolean) : Int
+    validarCedula(cedula: String): [Persona]
+    obtenerUsuario: Usuario
+    topBarrios(zona: ID) : [barrio]
+}
+type Mutation {
+    crearZona (input : inputZona) : zona
+    actualizarZona  (input: inputZona) : zona
+    eliminarZona(id : ID) : String
+    #Barrios
+    crearBarrio(input: inputBarrio) : barrio
+    eliminarBarrio(input: inputEliminarBarrio) : String
+    #Personas
+    crearPersona(input: inputPersona): Persona
+    eliminarPersona(id: String): String
+    enviarSMS(input: inputSMS): String 
+    registroMasivoPersonas(input: inputMasivePerson): [Persona]
+    actualizarPersona(input: inputPersona) : Persona
+    crearUsuario(usuario: String!, password: String!, nombre: String!, rol: String! ): String
+    autenticarUsuario(usuario: String!, password: String!): Token
+
+    #lugarVotacion
+    crearLugarVotacion(input: inputLugarVotacion) : lugarVotacion
+}
+
